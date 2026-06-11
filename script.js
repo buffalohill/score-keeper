@@ -23,6 +23,17 @@ function applyStrings() {
     el.textContent = resolveString(copy, el.dataset.string);
   });
   document.title = copy.appTitle;
+
+  const languageSwitch = document.querySelector('.language-switch');
+  if (languageSwitch) {
+    languageSwitch.dataset.currentLocale = locale;
+  }
+}
+
+function cycleLocale() {
+  const index = supportedLocales.indexOf(locale);
+  const next = supportedLocales[(index + 1) % supportedLocales.length];
+  setLocale(next);
 }
 
 function setLocale(code) {
@@ -72,6 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
   loadScores();
 
   main.addEventListener('click', (event) => {
+    if (event.target.closest('[data-action="cycle-locale"]')) {
+      cycleLocale();
+      return;
+    }
+
     const button = event.target.closest('.team button[data-action]');
     if (!button) return;
 

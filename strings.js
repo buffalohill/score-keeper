@@ -9,6 +9,7 @@ const strings = {
       increase: 'Increase',
       decrease: 'Decrease',
     },
+    languageSwitch: 'Language',
   },
   de: {
     appTitle: 'Punktestand',
@@ -20,6 +21,7 @@ const strings = {
       increase: 'Erhöhen',
       decrease: 'Verringern',
     },
+    languageSwitch: 'Sprache',
   },
   fr: {
     appTitle: 'Tableau de score',
@@ -31,6 +33,7 @@ const strings = {
       increase: 'Augmenter',
       decrease: 'Diminuer',
     },
+    languageSwitch: 'Langue',
   },
 };
 

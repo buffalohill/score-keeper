@@ -16,10 +16,37 @@ main {
   padding: var(--space-5) var(--space-3);
 }
 
-h1 {
+.app-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.app-header h1 {
   text-align: center;
-  margin: 0 0 var(--space-5);
+  margin: 0;
   font-size: var(--size-heading);
+}
+
+.language-switch {
+  position: absolute;
+  right: 0;
+  font: inherit;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--button-border);
+  border-radius: var(--radius-sm);
+  background: var(--button-bg);
+  cursor: pointer;
+}
+
+.language-switch:hover {
+  background: var(--button-hover-bg);
+}
+
+.language-switch:active {
+  background: var(--button-active-bg);
 }
 
 .team {
