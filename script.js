@@ -1,7 +1,35 @@
 // Team card: .team > h2, .score, .team-controls > button[data-action]
 
 const STORAGE_KEY = 'score-keeper-scores';
+const LOCALE_STORAGE_KEY = 'score-keeper-locale';
 const scores = new Map();
+
+function resolveString(obj, path) {
+  return path.split('.').reduce((value, key) => value[key], obj);
+}
+
+function detectLocale() {
+  const saved = localStorage.getItem(LOCALE_STORAGE_KEY);
+  if (saved && supportedLocales.includes(saved)) return saved;
+
+  const browser = navigator.language.slice(0, 2);
+  return supportedLocales.includes(browser) ? browser : 'en';
+}
+
+function applyStrings() {
+  const copy = strings[locale];
+  document.documentElement.lang = locale;
+  document.querySelectorAll('[data-string]').forEach((el) => {
+    el.textContent = resolveString(copy, el.dataset.string);
+  });
+  document.title = copy.appTitle;
+}
+
+function setLocale(code) {
+  locale = supportedLocales.includes(code) ? code : 'en';
+  localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+  applyStrings();
+}
 
 function getTeamId(team) {
   return team.querySelector('h2').id;
@@ -39,6 +67,8 @@ function loadScores() {
 document.addEventListener('DOMContentLoaded', () => {
   const main = document.querySelector('main');
 
+  locale = detectLocale();
+  applyStrings();
   loadScores();
 
   main.addEventListener('click', (event) => {
