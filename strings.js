@@ -8,6 +8,7 @@ const strings = {
     controls: {
       increase: 'Increase',
       decrease: 'Decrease',
+      reset: 'Reset',
     },
     languageSwitch: 'Language',
   },
@@ -20,6 +21,7 @@ const strings = {
     controls: {
       increase: 'Erhöhen',
       decrease: 'Verringern',
+      reset: 'Zurücksetzen',
     },
     languageSwitch: 'Sprache',
   },
@@ -32,6 +34,7 @@ const strings = {
     controls: {
       increase: 'Augmenter',
       decrease: 'Diminuer',
+      reset: 'Réinitialiser',
     },
     languageSwitch: 'Langue',
   },

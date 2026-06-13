@@ -75,6 +75,15 @@ function loadScores() {
   });
 }
 
+function resetScores() {
+  document.querySelectorAll('.team').forEach((team) => {
+    const display = team.querySelector('.score');
+    scores.set(team, 0);
+    updateScore(display, 0);
+  });
+  saveScores();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const main = document.querySelector('main');
 
@@ -85,6 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
   main.addEventListener('click', (event) => {
     if (event.target.closest('[data-action="cycle-locale"]')) {
       cycleLocale();
+      return;
+    }
+
+    if (event.target.closest('[data-action="reset-scores"]')) {
+      resetScores();
       return;
     }
 

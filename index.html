@@ -11,7 +11,6 @@
   <main>
     <header class="app-header">
       <h1 data-string="appTitle">Score Keeper</h1>
-      <button type="button" class="language-switch" data-action="cycle-locale" data-string="languageSwitch">Language</button>
     </header>
 
     <section class="team" aria-labelledby="team-awesome-heading">
@@ -31,6 +30,11 @@
         <button type="button" data-action="increase" data-string="controls.increase">Increase</button>
       </div>
     </section>
+
+    <footer class="app-footer">
+      <button type="button" class="language-switch" data-action="cycle-locale" data-string="languageSwitch">Language</button>
+      <button type="button" data-action="reset-scores" data-string="controls.reset">Reset</button>
+    </footer>
   </main>
   <script src="strings.js"></script>
   <script src="script.js"></script>

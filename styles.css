@@ -17,10 +17,6 @@ main {
 }
 
 .app-header {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-bottom: var(--space-5);
 }
 
@@ -30,9 +26,15 @@ main {
   font-size: var(--size-heading);
 }
 
-.language-switch {
-  position: absolute;
-  right: 0;
+.app-footer {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.app-footer button,
+.team-controls button {
   font: inherit;
   padding: var(--space-2) var(--space-3);
   border: 1px solid var(--button-border);
@@ -41,11 +43,17 @@ main {
   cursor: pointer;
 }
 
-.language-switch:hover {
+.team-controls button {
+  margin: 0 var(--space-1);
+}
+
+.app-footer button:hover,
+.team-controls button:hover {
   background: var(--button-hover-bg);
 }
 
-.language-switch:active {
+.app-footer button:active,
+.team-controls button:active {
   background: var(--button-active-bg);
 }
 
@@ -69,22 +77,4 @@ main {
   font-weight: 700;
   line-height: 1;
   margin-bottom: var(--space-3);
-}
-
-.team-controls button {
-  font: inherit;
-  padding: var(--space-2) var(--space-3);
-  margin: 0 var(--space-1);
-  border: 1px solid var(--button-border);
-  border-radius: var(--radius-sm);
-  background: var(--button-bg);
-  cursor: pointer;
-}
-
-.team-controls button:hover {
-  background: var(--button-hover-bg);
-}
-
-.team-controls button:active {
-  background: var(--button-active-bg);
 }
