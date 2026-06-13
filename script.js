@@ -4,12 +4,29 @@ const STORAGE_KEY = 'score-keeper-scores';
 const LOCALE_STORAGE_KEY = 'score-keeper-locale';
 const scores = new Map();
 
+const safeStorage = {
+  get(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  },
+  set(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      // Storage unavailable (e.g. sandboxed preview)
+    }
+  },
+};
+
 function resolveString(obj, path) {
   return path.split('.').reduce((value, key) => value[key], obj);
 }
 
 function detectLocale() {
-  const saved = localStorage.getItem(LOCALE_STORAGE_KEY);
+  const saved = safeStorage.get(LOCALE_STORAGE_KEY);
   if (saved && supportedLocales.includes(saved)) return saved;
 
   const browser = navigator.language.slice(0, 2);
@@ -28,6 +45,10 @@ function applyStrings() {
   if (languageSwitch) {
     languageSwitch.dataset.currentLocale = locale;
   }
+
+  if (typeof window.redrawSketchBorders === 'function') {
+    window.redrawSketchBorders();
+  }
 }
 
 function cycleLocale() {
@@ -38,7 +59,7 @@ function cycleLocale() {
 
 function setLocale(code) {
   locale = supportedLocales.includes(code) ? code : 'en';
-  localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+  safeStorage.set(LOCALE_STORAGE_KEY, locale);
   applyStrings();
 }
 
@@ -55,13 +76,13 @@ function saveScores() {
   scores.forEach((score, team) => {
     data[getTeamId(team)] = score;
   });
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  safeStorage.set(STORAGE_KEY, JSON.stringify(data));
 }
 
 function loadScores() {
   let saved = {};
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = safeStorage.get(STORAGE_KEY);
     if (raw) saved = JSON.parse(raw);
   } catch {
     saved = {};
@@ -84,39 +105,40 @@ function resetScores() {
   saveScores();
 }
 
+function handleMainClick(event) {
+  if (event.target.closest('[data-action="cycle-locale"]')) {
+    cycleLocale();
+    return;
+  }
+
+  if (event.target.closest('[data-action="reset-scores"]')) {
+    resetScores();
+    return;
+  }
+
+  const button = event.target.closest('.team button[data-action]');
+  if (!button) return;
+
+  const team = button.closest('.team');
+  const display = team.querySelector('.score');
+  let score = scores.get(team) ?? 0;
+
+  if (button.dataset.action === 'increase') {
+    score += 1;
+  } else {
+    score -= 1;
+  }
+
+  scores.set(team, score);
+  updateScore(display, score);
+  saveScores();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const main = document.querySelector('main');
+  main.addEventListener('click', handleMainClick);
 
   locale = detectLocale();
   applyStrings();
   loadScores();
-
-  main.addEventListener('click', (event) => {
-    if (event.target.closest('[data-action="cycle-locale"]')) {
-      cycleLocale();
-      return;
-    }
-
-    if (event.target.closest('[data-action="reset-scores"]')) {
-      resetScores();
-      return;
-    }
-
-    const button = event.target.closest('.team button[data-action]');
-    if (!button) return;
-
-    const team = button.closest('.team');
-    const display = team.querySelector('.score');
-    let score = scores.get(team);
-
-    if (button.dataset.action === 'increase') {
-      score += 1;
-    } else {
-      score -= 1;
-    }
-
-    scores.set(team, score);
-    updateScore(display, score);
-    saveScores();
-  });
 });
