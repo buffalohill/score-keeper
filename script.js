@@ -55,6 +55,7 @@ function cycleLocale() {
   const index = supportedLocales.indexOf(locale);
   const next = supportedLocales[(index + 1) % supportedLocales.length];
   setLocale(next);
+  window.playGreeting?.(locale);
 }
 
 function setLocale(code) {
@@ -103,6 +104,7 @@ function resetScores() {
     updateScore(display, 0);
   });
   saveScores();
+  window.playSound?.('tear');
 }
 
 function handleMainClick(event) {
@@ -132,6 +134,7 @@ function handleMainClick(event) {
   scores.set(team, score);
   updateScore(display, score);
   saveScores();
+  window.playSound?.('pencil');
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -45,6 +45,9 @@
   --text-shadow-heading: 0.4px 0.6px 0 rgba(58, 54, 50, 0.15);
   --text-shadow-score: 0.5px 0.7px 0 rgba(58, 54, 50, 0.12);
 
+  /* Sound */
+  --sound-volume: 0.7;
+
   /* Semantic tokens */
   --app-bg: var(--color-paper-cream);
   --app-text: var(--color-pencil-dark);
