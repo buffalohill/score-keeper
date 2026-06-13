@@ -4,6 +4,7 @@
   --color-pencil-light: #8a8278;
   --color-pencil: #5c574f;
   --color-pencil-dark: #3a3632;
+  --color-pencil-blue: #007aff;
   --color-pencil-wash: rgba(74, 69, 64, 0.07);
   --color-pencil-wash-active: rgba(74, 69, 64, 0.12);
 
@@ -53,6 +54,7 @@
 
   --button-bg: transparent;
   --button-border: var(--color-pencil-light);
+  --button-text: var(--color-pencil-blue);
   --button-hover-bg: var(--color-pencil-wash);
   --button-active-bg: var(--color-pencil-wash-active);
 }

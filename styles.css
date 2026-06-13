@@ -96,7 +96,14 @@ main {
   padding: var(--space-2) var(--space-4);
   min-width: 5.5rem;
   cursor: pointer;
+  color: var(--button-text);
+  -webkit-text-fill-color: var(--button-text);
   transition: background-color 0.15s ease;
+}
+
+.app-footer button span,
+.team-controls button span {
+  color: inherit;
 }
 
 .team-controls button {
