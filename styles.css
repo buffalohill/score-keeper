@@ -15,12 +15,21 @@ body {
   font-family: var(--font-hand);
   font-size: var(--size-body);
   line-height: 1.35;
-  background-color: var(--app-bg);              /* cream fallback behind photo */
-  background-image: url('assets/paper.jpg');    /* lined notebook photo */
+  background-color: var(--app-bg);              /* cream fallback if photo fails to load */
+  color: var(--app-text);
+}
+
+/* Paper photo on a fixed layer — Safari ignores background-attachment: fixed on body */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('assets/paper.jpg');
   background-size: cover;
   background-position: center top;
-  background-attachment: fixed;                 /* parallax-like scroll (can be janky on iOS) */
-  color: var(--app-text);
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Coffee stain — decorative overlay, bottom-right corner */
