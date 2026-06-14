@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- lang updated by script.js when locale changes -->
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Score Keeper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- mobile-friendly scaling -->
+  <title>Score Keeper</title> <!-- overwritten by script.js applyStrings() -->
+
+  <!-- Google Fonts: hand-written look (also waited on by sketch.js before drawing borders) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tokens.css">
+
+  <link rel="stylesheet" href="tokens.css"> <!-- design tokens — load before styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- All click handling is delegated to <main> in script.js -->
   <main>
     <header class="app-header">
+      <!-- data-string paths match keys in strings.js -->
       <h1 data-string="appTitle">Score Keeper</h1>
     </header>
 
+    <!-- Team card: sketch.js draws a border around .team -->
     <section class="team" aria-labelledby="team-awesome-heading">
+      <!-- id is stable across locales — used as localStorage key for this team's score -->
       <h2 id="team-awesome-heading" data-string="teams.awesome">Team Awesome</h2>
-      <span class="score" aria-live="polite">0</span>
+      <span class="score" aria-live="polite">0</span> <!-- screen readers announce score changes -->
       <div class="team-controls">
+        <!-- data-action tells script.js what to do; label in inner <span> protects sketch SVG -->
         <button type="button" data-action="decrease"><span data-string="controls.decrease">Decrease</span></button>
         <button type="button" data-action="increase"><span data-string="controls.increase">Increase</span></button>
       </div>
@@ -39,10 +47,12 @@
       <button type="button" data-action="reset-scores"><span data-string="controls.reset">Reset</span></button>
     </footer>
   </main>
-  <script src="https://unpkg.com/roughjs@4.6.6/bundled/rough.js"></script>
-  <script src="strings.js"></script>
-  <script src="sketch.js"></script>
-  <script src="sounds.js"></script>
-  <script src="script.js"></script>
+
+  <!-- Script order matters: each file may depend on globals from the ones above -->
+  <script src="https://unpkg.com/roughjs@4.6.6/bundled/rough.js"></script> <!-- hand-drawn borders -->
+  <script src="strings.js"></script>  <!-- UI copy + locale config -->
+  <script src="sketch.js"></script>   <!-- draws borders; exposes window.redrawSketchBorders -->
+  <script src="sounds.js"></script>   <!-- exposes window.playSound / window.playGreeting -->
+  <script src="script.js"></script>   <!-- main app logic — runs last -->
 </body>
 </html>

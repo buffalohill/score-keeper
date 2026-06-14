@@ -1,62 +1,74 @@
+/* Design tokens — single source of truth for colours, spacing, and settings.
+   Referenced by styles.css (visual layout) and read by sketch.js / sounds.js via getComputedStyle. */
+
 :root {
-  /* Paper and pencil */
-  --color-paper-cream: #f5efe3;
-  --color-pencil-light: #8a8278;
-  --color-pencil: #5c574f;
-  --color-pencil-dark: #3a3632;
-  --color-pencil-blue: #007aff;
-  --color-pencil-wash: rgba(74, 69, 64, 0.07);
-  --color-pencil-wash-active: rgba(74, 69, 64, 0.12);
+  /* --- Paper and pencil palette --- */
 
-  /* Typography */
-  --font-hand: 'Homemade Apple', cursive;
+  --color-paper-cream: #f5efe3;              /* fallback bg if paper photo fails to load */
+  --color-pencil-light: #8a8278;             /* lighter pencil grey */
+  --color-pencil: #5c574f;                   /* mid pencil grey */
+  --color-pencil-dark: #3a3632;              /* headings, scores, sketch stroke */
+  --color-pencil-blue: #007aff;              /* button label colour (iOS-style blue) */
+  --color-pencil-wash: rgba(74, 69, 64, 0.07);       /* button hover tint */
+  --color-pencil-wash-active: rgba(74, 69, 64, 0.12); /* button pressed tint */
 
-  /* Spacing scale */
+  /* --- Typography --- */
+
+  --font-hand: 'Homemade Apple', cursive;      /* loaded from Google Fonts in index.html */
+
+  /* --- Spacing scale (used for padding, gaps, margins) --- */
+
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
   --space-4: 1.5rem;
   --space-5: 2rem;
 
-  /* Sizing */
-  --size-score: 3.25rem;
-  --size-heading: 2.5rem;
-  --size-team-name: 1.65rem;
-  --size-body: 1.35rem;
+  /* --- Font sizes --- */
 
-  /* Sketch borders */
-  --sketch-stroke: var(--color-pencil-dark);
-  --sketch-roughness-team: 1.5;
-  --sketch-roughness-button: 1.2;
-  --sketch-bowing-team: 2;
-  --sketch-bowing-button: 1.4;
+  --size-score: 3.25rem;       /* big number in each team card */
+  --size-heading: 2.5rem;      /* page title */
+  --size-team-name: 1.65rem;   /* team h2 */
+  --size-body: 1.35rem;        /* base body / button text */
+
+  /* --- Sketch borders (read by sketch.js) --- */
+
+  --sketch-stroke: var(--color-pencil-dark);   /* pencil colour for Rough.js lines */
+  --sketch-roughness-team: 1.5;                /* wobble amount — team cards */
+  --sketch-roughness-button: 1.2;              /* wobble amount — buttons */
+  --sketch-bowing-team: 2;                     /* line curvature — team cards */
+  --sketch-bowing-button: 1.4;                 /* line curvature — buttons */
   --sketch-stroke-width-team: 2;
   --sketch-stroke-width-button: 1.4;
-  --sketch-inset-team: 6;
-  --sketch-inset-button: 3;
+  --sketch-inset-team: 6;                      /* px padding inside team border */
+  --sketch-inset-button: 3;                    /* px padding inside button border */
 
-  /* Coffee stain */
+  /* --- Coffee stain overlay (used by body::after in styles.css) --- */
+
   --coffee-stain-opacity: 0.3;
-  --coffee-stain-size: min(55vw, 18rem);
+  --coffee-stain-size: min(55vw, 18rem);       /* responsive but capped */
   --coffee-stain-offset-bottom: 2%;
   --coffee-stain-offset-right: 1%;
 
-  /* Text effects */
+  /* --- Text effects --- */
+
   --text-shadow-heading: 0.4px 0.6px 0 rgba(58, 54, 50, 0.15);
   --text-shadow-score: 0.5px 0.7px 0 rgba(58, 54, 50, 0.12);
 
-  /* Sound */
-  --sound-volume: 0.7;
+  /* --- Sound (read by sounds.js) --- */
 
-  /* Semantic tokens */
+  --sound-volume: 0.7;                         /* 0 = silent, 1 = full volume */
+
+  /* --- Keyboard focus (used by button:focus-visible in styles.css) --- */
+
+  --focus-ring: 2px solid var(--color-pencil-blue);
+  --focus-ring-offset: 2px;
+
+  /* --- Semantic aliases (styles.css uses these instead of raw palette values) --- */
+
   --app-bg: var(--color-paper-cream);
   --app-text: var(--color-pencil-dark);
 
-  --team-bg: transparent;
-  --team-border: var(--color-pencil-light);
-
-  --button-bg: transparent;
-  --button-border: var(--color-pencil-light);
   --button-text: var(--color-pencil-blue);
   --button-hover-bg: var(--color-pencil-wash);
   --button-active-bg: var(--color-pencil-wash-active);

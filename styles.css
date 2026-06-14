@@ -1,6 +1,12 @@
+/* Layout and visual styling. All colours/sizes come from tokens.css — don't hardcode values here. */
+
+/* --- Global reset --- */
+
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; /* padding/border included in width calculations */
 }
+
+/* --- Page background --- */
 
 body {
   position: relative;
@@ -9,14 +15,15 @@ body {
   font-family: var(--font-hand);
   font-size: var(--size-body);
   line-height: 1.35;
-  background-color: var(--app-bg);
-  background-image: url('assets/paper.jpg');
+  background-color: var(--app-bg);              /* cream fallback behind photo */
+  background-image: url('assets/paper.jpg');    /* lined notebook photo */
   background-size: cover;
   background-position: center top;
-  background-attachment: fixed;
+  background-attachment: fixed;                 /* parallax-like scroll (can be janky on iOS) */
   color: var(--app-text);
 }
 
+/* Coffee stain — decorative overlay, bottom-right corner */
 body::after {
   content: '';
   position: fixed;
@@ -25,28 +32,32 @@ body::after {
   width: var(--coffee-stain-size);
   height: var(--coffee-stain-size);
   background: url('assets/coffee-stain 2.png') center / contain no-repeat;
-  mix-blend-mode: multiply;
+  mix-blend-mode: multiply;                     /* darken only where stain is visible */
   opacity: var(--coffee-stain-opacity);
-  mask-image: url('assets/coffee-stain 2.png');
+  mask-image: url('assets/coffee-stain 2.png'); /* clip to stain shape via luminance */
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
   mask-mode: luminance;
-  -webkit-mask-image: url('assets/coffee-stain 2.png');
+  -webkit-mask-image: url('assets/coffee-stain 2.png'); /* Safari prefix */
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-  pointer-events: none;
+  pointer-events: none;                         /* clicks pass through to content below */
   z-index: 0;
 }
 
+/* --- Main content area --- */
+
 main {
   position: relative;
-  z-index: 1;
-  max-width: 640px;
-  margin: 0 auto;
+  z-index: 1;                                   /* above the coffee stain */
+  max-width: 640px;                             /* readable width on desktop */
+  margin: 0 auto;                               /* centre on wide screens */
   padding: var(--space-5) var(--space-3);
 }
+
+/* --- Header --- */
 
 .app-header {
   margin-bottom: var(--space-5);
@@ -56,10 +67,12 @@ main {
   text-align: center;
   margin: 0;
   font-size: var(--size-heading);
-  font-weight: 400;
+  font-weight: 400;                             /* Homemade Apple looks best at normal weight */
   letter-spacing: 0.02em;
   text-shadow: var(--text-shadow-heading);
 }
+
+/* --- Footer (Language + Reset buttons) --- */
 
 .app-footer {
   display: flex;
@@ -69,38 +82,43 @@ main {
   margin-top: var(--space-5);
 }
 
+/* --- Sketch frames (Rough.js SVG borders from sketch.js) --- */
+
 .sketch-frame {
-  position: relative;
-  border: none;
+  position: relative;                           /* anchor for absolutely positioned SVG */
+  border: none;                                 /* real border drawn by Rough.js instead */
   background: transparent;
 }
 
 .sketch-border {
   position: absolute;
-  inset: 0;
+  inset: 0;                                     /* fill the parent element */
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  pointer-events: none;                         /* don't block button clicks */
   overflow: visible;
-  z-index: 0;
+  z-index: 0;                                   /* behind text content */
 }
 
 .sketch-frame > :not(.sketch-border) {
   position: relative;
-  z-index: 1;
+  z-index: 1;                                   /* text/buttons sit above the SVG border */
 }
+
+/* --- Buttons (footer + team controls) --- */
 
 .app-footer button,
 .team-controls button {
-  font: inherit;
+  font: inherit;                                /* use Homemade Apple from body */
   padding: var(--space-2) var(--space-4);
-  min-width: 5.5rem;
+  min-width: 5.5rem;                            /* consistent button width */
   cursor: pointer;
   color: var(--button-text);
-  -webkit-text-fill-color: var(--button-text);
+  -webkit-text-fill-color: var(--button-text);  /* Safari: keep label blue */
   transition: background-color 0.15s ease;
 }
 
+/* Label text lives in inner <span> so sketch.js SVG isn't wiped on locale change */
 .app-footer button span,
 .team-controls button span {
   color: inherit;
@@ -119,6 +137,14 @@ main {
 .team-controls button:active {
   background: var(--button-active-bg);
 }
+
+.app-footer button:focus-visible,
+.team-controls button:focus-visible {
+  outline: var(--focus-ring);                   /* keyboard navigation indicator */
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* --- Team cards --- */
 
 .team {
   width: 100%;
@@ -145,6 +171,7 @@ main {
   margin-bottom: var(--space-3);
   letter-spacing: 0.04em;
   text-shadow: var(--text-shadow-score);
+  /* aria-live="polite" on this element (in index.html) announces changes to screen readers */
 }
 
 .team-controls {

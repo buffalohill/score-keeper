@@ -1,16 +1,19 @@
+// UI copy for all supported languages.
+// HTML elements use data-string="dot.path" to look up text here (see script.js applyStrings).
+
 const strings = {
   en: {
-    appTitle: 'Score Keeper',
+    appTitle: 'Score Keeper',           // <title> and <h1 data-string="appTitle">
     teams: {
-      awesome: 'Team Awesome',
-      boring: 'Team Boring',
+      awesome: 'Team Awesome',            // h2 data-string="teams.awesome"
+      boring: 'Team Boring',              // h2 data-string="teams.boring"
     },
     controls: {
-      increase: 'Increase',
+      increase: 'Increase',             // button span data-string="controls.increase"
       decrease: 'Decrease',
-      reset: 'Reset',
+      reset: 'Reset',                     // footer reset button
     },
-    languageSwitch: 'Language',
+    languageSwitch: 'Language',         // footer language button label
   },
   de: {
     appTitle: 'Punktestand',
@@ -40,5 +43,8 @@ const strings = {
   },
 };
 
+// Order determines the Language button cycle: en → de → fr → en.
 const supportedLocales = ['en', 'de', 'fr'];
+
+// Active locale; read and updated by script.js (starts as 'en' until detectLocale runs).
 let locale = 'en';
